@@ -8,7 +8,7 @@
 	<xsl:template match="/">
 
 		<!-- header row -->
-		<xsl:for-each select="/resultset/row[1]/field">
+		<xsl:for-each select="((/resultset)|(/mysqldump/database/table_data))/row[1]/field">
 			<xsl:text>"</xsl:text>
 				<xsl:value-of select="str:replace(@name, '&quot;', '\&quot;')"/>
 			<xsl:text>"</xsl:text>
@@ -19,7 +19,7 @@
 		<xsl:text>&#xa;</xsl:text>
 
 		<!-- data rows -->
-		<xsl:for-each select="/resultset/row">
+		<xsl:for-each select="((/resultset)|(/mysqldump/database/table_data))/row">
 			<xsl:for-each select="field">
 				<xsl:text>"</xsl:text>
 				<xsl:value-of select="str:replace(str:replace(., '&quot;', '\&quot;'), '&#xa;', '\n')"/>

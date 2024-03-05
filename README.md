@@ -9,10 +9,16 @@ the `SELECT ... INTO OUTFILE ...` syntax.
 
 ## Usage
 
+With the CLI client:
+
     echo 'SELECT * FROM table' | \
     mariadb --batch --xml --host localhost --user user --password=password db | \
     xsltproc xml2csv.xslt - > output.csv
 
+With the `mysqldump` CLI utility:
+
+    mysqldump --xml --host localhost --user user --password=password db table | \
+    xsltproc xml2csv.xslt - > output.csv
 
 ## TODO
 
@@ -22,5 +28,3 @@ the `SELECT ... INTO OUTFILE ...` syntax.
     - escaping for column enclosing characters
     - row separators / newlines
     - escaping for row separators / newlines
-
-* add support for `mysqldump` XML format
