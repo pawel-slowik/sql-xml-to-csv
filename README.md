@@ -20,10 +20,15 @@ With the `mysqldump` CLI utility:
     mysqldump --xml --host localhost --user user --password=password db table | \
     xsltproc xml2csv.xslt - > output.csv
 
+Using `;` instead of the default `,` as column separators:
+
+    mysqldump --xml --host localhost --user user --password=password db table | \
+    xsltproc --stringparam column_separator ';' xml2csv.xslt - > output.csv
+
+
 ## TODO
 
 * parametrize:
-    - column separators
     - column enclosing characters
     - escaping for column enclosing characters
     - row separators / newlines

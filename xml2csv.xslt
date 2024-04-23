@@ -3,6 +3,8 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:str="http://exslt.org/strings"
 >
+	<xsl:param name="column_separator" select="','" />
+
 	<xsl:output indent="no" omit-xml-declaration="yes" method="text"/>
 
 	<xsl:template match="/">
@@ -13,7 +15,7 @@
 				<xsl:value-of select="str:replace(@name, '&quot;', '\&quot;')"/>
 			<xsl:text>"</xsl:text>
 			<xsl:if test="position() != last()">
-				<xsl:text>,</xsl:text>
+				<xsl:value-of select="$column_separator" />
 			</xsl:if>
 		</xsl:for-each>
 		<xsl:text>&#xa;</xsl:text>
@@ -25,7 +27,7 @@
 				<xsl:value-of select="str:replace(str:replace(., '&quot;', '\&quot;'), '&#xa;', '\n')"/>
 				<xsl:text>"</xsl:text>
 				<xsl:if test="position() != last()">
-					<xsl:text>,</xsl:text>
+					<xsl:value-of select="$column_separator" />
 				</xsl:if>
 			</xsl:for-each>
 			<xsl:text>&#xa;</xsl:text>
