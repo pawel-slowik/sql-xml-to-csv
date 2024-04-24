@@ -5,3 +5,5 @@ docker exec -it xml-sql mysql --xml -e "SELECT \"foo\" AS id, \"bar \\\"baz\" AS
 docker exec -it xml-sql mysql --xml -e "SELECT 1000 AS id, \"foo\" AS name" --host=localhost --user=user -p --password=password | dos2unix > tests/column_separator/input.xml
 
 docker exec -it xml-sql mysql --xml -e "SELECT \"foo\" AS id, \"bar\nbaz\" AS description" --host=localhost --user=user -p --password=password | dos2unix > tests/newline_replacement/input.xml
+
+cp tests/column_quoting/input.xml tests/changed_column_quoting/input.xml

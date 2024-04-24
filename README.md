@@ -26,10 +26,19 @@ Using `;` instead of the default `,` as column separators:
     xsltproc --stringparam column_separator ';' xml2csv.xslt - > output.csv
 
 
+### Parameters
+
+- `column_separator` - string used to separate columns. This is the equivalent
+  of the `TERMINATED BY ...` option for `SELECT ... INTO OUTFILE ...`. Default
+  is `,`.
+- `column_enclosed_by` - string used to quote column values. This is meant to be
+  the equivalent of the `ENCLOSED BY ...` option, but its handling may be
+  slightly different. Default is `"`.
+
+
 ## TODO
 
 * parametrize:
-    - column enclosing characters
     - escaping for column enclosing characters
     - row separators / newlines
     - escaping for row separators / newlines

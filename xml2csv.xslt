@@ -4,6 +4,7 @@
 	xmlns:str="http://exslt.org/strings"
 >
 	<xsl:param name="column_separator" select="','" />
+	<xsl:param name="column_enclosed_by" select="'&quot;'" />
 
 	<xsl:output indent="no" omit-xml-declaration="yes" method="text"/>
 
@@ -11,9 +12,9 @@
 
 		<!-- header row -->
 		<xsl:for-each select="((/resultset)|(/mysqldump/database/table_data))/row[1]/field">
-			<xsl:text>"</xsl:text>
-				<xsl:value-of select="str:replace(@name, '&quot;', '\&quot;')"/>
-			<xsl:text>"</xsl:text>
+			<xsl:value-of select="$column_enclosed_by"/>
+			<xsl:value-of select="str:replace(@name, $column_enclosed_by, concat('\', $column_enclosed_by))"/>
+			<xsl:value-of select="$column_enclosed_by"/>
 			<xsl:if test="position() != last()">
 				<xsl:value-of select="$column_separator" />
 			</xsl:if>
@@ -23,9 +24,9 @@
 		<!-- data rows -->
 		<xsl:for-each select="((/resultset)|(/mysqldump/database/table_data))/row">
 			<xsl:for-each select="field">
-				<xsl:text>"</xsl:text>
-				<xsl:value-of select="str:replace(str:replace(., '&quot;', '\&quot;'), '&#xa;', '\n')"/>
-				<xsl:text>"</xsl:text>
+				<xsl:value-of select="$column_enclosed_by"/>
+				<xsl:value-of select="str:replace(str:replace(., $column_enclosed_by, concat('\', $column_enclosed_by)), '&#xa;', '\n')"/>
+				<xsl:value-of select="$column_enclosed_by"/>
 				<xsl:if test="position() != last()">
 					<xsl:value-of select="$column_separator" />
 				</xsl:if>
