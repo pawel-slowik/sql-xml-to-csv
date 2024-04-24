@@ -12,9 +12,16 @@
 
 		<!-- header row -->
 		<xsl:for-each select="((/resultset)|(/mysqldump/database/table_data))/row[1]/field">
-			<xsl:value-of select="$column_enclosed_by"/>
-			<xsl:value-of select="str:replace(@name, $column_enclosed_by, concat('\', $column_enclosed_by))"/>
-			<xsl:value-of select="$column_enclosed_by"/>
+			<xsl:choose>
+				<xsl:when test="$column_enclosed_by = ''">
+					<xsl:value-of select="@name"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="$column_enclosed_by"/>
+					<xsl:value-of select="str:replace(@name, $column_enclosed_by, concat('\', $column_enclosed_by))"/>
+					<xsl:value-of select="$column_enclosed_by"/>
+				</xsl:otherwise>
+			</xsl:choose>
 			<xsl:if test="position() != last()">
 				<xsl:value-of select="$column_separator" />
 			</xsl:if>
@@ -24,9 +31,16 @@
 		<!-- data rows -->
 		<xsl:for-each select="((/resultset)|(/mysqldump/database/table_data))/row">
 			<xsl:for-each select="field">
-				<xsl:value-of select="$column_enclosed_by"/>
-				<xsl:value-of select="str:replace(str:replace(., $column_enclosed_by, concat('\', $column_enclosed_by)), '&#xa;', '\n')"/>
-				<xsl:value-of select="$column_enclosed_by"/>
+				<xsl:choose>
+					<xsl:when test="$column_enclosed_by = ''">
+						<xsl:value-of select="str:replace(., '&#xa;', '\n')"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="$column_enclosed_by"/>
+						<xsl:value-of select="str:replace(str:replace(., $column_enclosed_by, concat('\', $column_enclosed_by)), '&#xa;', '\n')"/>
+						<xsl:value-of select="$column_enclosed_by"/>
+					</xsl:otherwise>
+				</xsl:choose>
 				<xsl:if test="position() != last()">
 					<xsl:value-of select="$column_separator" />
 				</xsl:if>

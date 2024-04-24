@@ -33,7 +33,7 @@ Using `;` instead of the default `,` as column separators:
   is `,`.
 - `column_enclosed_by` - string used to quote column values. This is meant to be
   the equivalent of the `ENCLOSED BY ...` option, but its handling may be
-  slightly different. Default is `"`.
+  slightly different. Default is `"`. Can be empty.
 
 
 ## TODO
