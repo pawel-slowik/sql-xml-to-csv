@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<resultset statement="SELECT &quot;foo&quot; AS id, &quot;bar\nbaz&quot; AS description
+" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <row>
+	<field name="id">foo</field>
+	<field name="description">bar
+baz</field>
+  </row>
+</resultset>

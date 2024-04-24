@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<resultset statement="SELECT 1000 AS id, &quot;foo&quot; AS name
+" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <row>
+	<field name="id">1000</field>
+	<field name="name">foo</field>
+  </row>
+</resultset>

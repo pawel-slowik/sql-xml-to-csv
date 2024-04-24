@@ -1,0 +1,7 @@
+These are just some notes on how to generate XML files for testing.
+
+docker exec -it xml-sql mysql --xml -e "SELECT \"foo\" AS id, \"bar \\\"baz\" AS \"original \\\"description\\\" field\"" --host=localhost --user=user -p --password=password | dos2unix > tests/column_quoting/input.xml
+
+docker exec -it xml-sql mysql --xml -e "SELECT 1000 AS id, \"foo\" AS name" --host=localhost --user=user -p --password=password | dos2unix > tests/column_separator/input.xml
+
+docker exec -it xml-sql mysql --xml -e "SELECT \"foo\" AS id, \"bar\nbaz\" AS description" --host=localhost --user=user -p --password=password | dos2unix > tests/newline_replacement/input.xml
