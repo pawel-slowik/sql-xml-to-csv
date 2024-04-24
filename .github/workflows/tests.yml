@@ -1,0 +1,29 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+    types:
+      - assigned
+      - edited
+      - opened
+      - ready_for_review
+      - reopened
+      - review_requested
+      - synchronize
+  workflow_dispatch:
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update package database before installing xsltproc
+        run: sudo apt-get update
+      - name: Install xsltproc
+        run: sudo apt-get install -y xsltproc
+      - name: Run tests
+        run: ./tests/run_tests.sh
