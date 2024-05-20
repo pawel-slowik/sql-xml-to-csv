@@ -34,11 +34,13 @@ Using `;` instead of the default `,` as column separators:
 - `column_enclosed_by` - string used to quote column values. This is meant to be
   the equivalent of the `ENCLOSED BY ...` option, but its handling may be
   slightly different. Default is `"`. Can be empty.
+- `column_escaped_by` - string used to escape the `column_enclosed_by`
+  character.  This is roughly equivalent to the `ESCAPED BY ...` option.
+  Default is `\`.
 
 
 ## TODO
 
 * parametrize:
-    - escaping for column enclosing characters
     - row separators / newlines
     - escaping for row separators / newlines

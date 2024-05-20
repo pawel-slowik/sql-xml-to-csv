@@ -13,3 +13,5 @@ cp tests/column_quoting/input.xml tests/empty_column_quoting/input.xml
 docker exec -it xml-sql mysql -e "CREATE TABLE xml_test (id INT NOT NULL, name VARCHAR(200) NOT NULL, PRIMARY KEY (id))" --host=localhost --user=user -p --password=password db
 docker exec -it xml-sql mysql -e "INSERT INTO xml_test (id, name) VALUES (100, \"foo bar baz\")" --host=localhost --user=user -p --password=password db
 docker exec -it xml-sql mysqldump --xml --host=localhost --user=user -p --password=password db xml_test > tests/mysqldump/input.xml
+
+cp tests/column_quoting/input.xml tests/column_escaping/input.xml

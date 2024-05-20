@@ -5,6 +5,7 @@
 >
 	<xsl:param name="column_separator" select="','" />
 	<xsl:param name="column_enclosed_by" select="'&quot;'" />
+	<xsl:param name="column_escaped_by" select="'\'" />
 
 	<xsl:output indent="no" omit-xml-declaration="yes" method="text"/>
 
@@ -18,7 +19,7 @@
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:value-of select="$column_enclosed_by"/>
-					<xsl:value-of select="str:replace(@name, $column_enclosed_by, concat('\', $column_enclosed_by))"/>
+					<xsl:value-of select="str:replace(@name, $column_enclosed_by, concat($column_escaped_by, $column_enclosed_by))"/>
 					<xsl:value-of select="$column_enclosed_by"/>
 				</xsl:otherwise>
 			</xsl:choose>
@@ -37,7 +38,7 @@
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:value-of select="$column_enclosed_by"/>
-						<xsl:value-of select="str:replace(str:replace(., $column_enclosed_by, concat('\', $column_enclosed_by)), '&#xa;', '\n')"/>
+						<xsl:value-of select="str:replace(str:replace(., $column_enclosed_by, concat($column_escaped_by, $column_enclosed_by)), '&#xa;', '\n')"/>
 						<xsl:value-of select="$column_enclosed_by"/>
 					</xsl:otherwise>
 				</xsl:choose>
