@@ -39,8 +39,25 @@ Using `;` instead of the default `,` as column separators:
   Default is `\`.
 
 
+## End of line processing
+
+The XML engine does not distinguish between various [newline
+representations](https://en.wikipedia.org/wiki/End_of_line). Therefore any
+required end of line processing should be performed separately. This could be
+implemented either before any XML processing, e.g. in SQL queries, or after
+finishing it, with tools like `sed`, `tr`, `dos2unix` etc.
+
+`xsltproc`'s internal representation of a newline can be verified like this:
+
+    printf '<?xml version="1.0"?><root>a\nb</root>' | xsltproc test_newlines.xslt -
+
+    printf '<?xml version="1.0"?><root>a\rb</root>' | xsltproc test_newlines.xslt -
+
+The output is the same for both cases, even though they contain data with
+different line endings.
+
+
 ## TODO
 
 * parametrize:
-    - row separators / newlines
     - escaping for row separators / newlines
