@@ -11,6 +11,9 @@
 
 	<xsl:template match="/">
 
+		<xsl:variable name="newline" select="'&#xa;'" />
+		<xsl:variable name="newline_replacement" select="'\n'" />
+
 		<!-- header row -->
 		<xsl:for-each select="((/resultset)|(/mysqldump/database/table_data))/row[1]/field">
 			<xsl:choose>
@@ -27,18 +30,18 @@
 				<xsl:value-of select="$column_separator" />
 			</xsl:if>
 		</xsl:for-each>
-		<xsl:text>&#xa;</xsl:text>
+		<xsl:value-of select="$newline"/>
 
 		<!-- data rows -->
 		<xsl:for-each select="((/resultset)|(/mysqldump/database/table_data))/row">
 			<xsl:for-each select="field">
 				<xsl:choose>
 					<xsl:when test="$column_enclosed_by = ''">
-						<xsl:value-of select="str:replace(., '&#xa;', '\n')"/>
+						<xsl:value-of select="str:replace(., $newline, $newline_replacement)"/>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:value-of select="$column_enclosed_by"/>
-						<xsl:value-of select="str:replace(str:replace(., $column_enclosed_by, concat($column_escaped_by, $column_enclosed_by)), '&#xa;', '\n')"/>
+						<xsl:value-of select="str:replace(str:replace(., $column_enclosed_by, concat($column_escaped_by, $column_enclosed_by)), $newline, $newline_replacement)"/>
 						<xsl:value-of select="$column_enclosed_by"/>
 					</xsl:otherwise>
 				</xsl:choose>
@@ -46,7 +49,7 @@
 					<xsl:value-of select="$column_separator" />
 				</xsl:if>
 			</xsl:for-each>
-			<xsl:text>&#xa;</xsl:text>
+			<xsl:value-of select="$newline"/>
 		</xsl:for-each>
 
 	</xsl:template>
